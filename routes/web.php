@@ -25,7 +25,8 @@ Route::prefix('evenement')
             ->name('.success');
             Route::post('/success', function () {
                 return redirect()->route('evenement.inscription.success');
-            });
+            })
+            ->name('.success.redirection');
         });
     }
 );
