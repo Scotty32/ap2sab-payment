@@ -16,6 +16,7 @@ class CinetpayNotification extends Controller
      */
     public function __invoke(Request $request)
     {
+        Log::info( 'response' , $request->all());
         $transaction_id = $request->input('cpm_trans_id');
         if (!$transaction_id) {
             abort(400);
