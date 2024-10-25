@@ -2,28 +2,56 @@
 
 namespace App\Services;
 
-use App\Contracts\CreateParticipantContract;
+use App\Contracts\AddParticipantContract;
+use App\Contracts\AddParticipantReturnContract;
 use App\Models\Participant;
+use App\Models\Profile;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 
 class ParticipantService
 {
+    public function __construct(
+        private ProfileService $profileService,
+        private TransactionService $transactionService,
+    ) { }
     public function addParticipant(
-        CreateParticipantContract $participantDto,
+        AddParticipantContract $participantDto,
+    ): AddParticipantReturnContract {
+
+        try {
+            DB::beginTransaction();
+
+            $profile = $this->profileService->getOrCreateProfile($participantDto);
+            $returnUrl = url(route('evenement.inscription.success'));
+
+            $transaction = $this->transactionService->initTransaction(
+                $profile,
+                $participantDto->getAmount(),
+                $participantDto->getDesignation(),
+                $returnUrl,
+            );
+    
+            $participant = $this->createParticipant($profile, $transaction);
+
+            DB::commit();
+            return new AddParticipantReturnContract(
+                $participant,
+                $transaction->payment_url,
+            );
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            throw $th;
+        }
+    }
+
+    public function createParticipant(
+        Profile $profile,
         Transaction $transaction
     ): Participant {
-        $data = [
-            'last_name' => $participantDto->getLastName(),
-            'first_name' => $participantDto->getFirstName(),
-            'email' => $participantDto->getEmail(),
-            'phone_number' => $participantDto->getPhoneNumber(),
-            'promotion' => $participantDto->getPromotion(),
-            'profession' => $participantDto->getProfession(),
-            'country' => $participantDto->getCountry(),
-            'city' => $participantDto->getCity(),
-        ];
-
-        $participant = $transaction->participant()->create($data);
+        $participant = $profile->participants()->create([
+            'transaction_id' => $transaction->id
+        ]);
 
         return $participant;
     }

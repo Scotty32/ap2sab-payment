@@ -7,28 +7,29 @@ use App\Models\Money;
 class CreateTransactionContract {
     public function __construct(
         private string $uuid,
-        private string $paymentCode,
-        private float $amount,
-        private string $currency,
-        private string $paymentDate,
+        private Money $amount,
+        private string $designation,
+        private string $paymentToken,
+        private string $paymentUrl,
     ) {}
 
     public function getUuid(): string {
         return $this->uuid;
     }
 
-    public function getPaymentCode(): string {
-        return $this->paymentCode;
-    }
-
     public function getAmount(): Money {
-        return new Money(
-            $this->currency,
-            $this->amount,
-        );
+        return $this->amount;
     }
 
-    public function getPaymentDate(): string {
-        return $this->paymentDate;
+    public function getDesignation(): string {
+        return $this->designation;
+    }
+
+    public function getPayementToken(): string {
+        return $this->paymentToken;
+    }
+
+    public function getPayementUrl(): string {
+        return $this->paymentUrl;
     }
 }

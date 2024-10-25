@@ -2,16 +2,16 @@
 
 namespace App\Contracts;
 
-class CreateParticipantContract {
+class CreateProfileContract {
     public function __construct(
-        private string $last_name,
-        private string $first_name,
-        private string $email,
-        private string $phoneNumber,
-        private string $promotion,
-        private ?string $profession,
-        private string $country,
-        private string $city,
+        protected string $last_name,
+        protected string $first_name,
+        protected string $email,
+        protected string $phoneNumber,
+        protected ?string $promotion,
+        protected ?string $profession,
+        protected string $country,
+        protected string $city,
     ) {}
 
     public function getFirstName(): string {
@@ -30,7 +30,7 @@ class CreateParticipantContract {
         return $this->phoneNumber;
     }
 
-    public function getPromotion(): string {
+    public function getPromotion(): ?string {
         return $this->promotion;
     }
 

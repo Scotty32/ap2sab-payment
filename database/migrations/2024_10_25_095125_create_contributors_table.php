@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('participants', function (Blueprint $table) {
-            $table->string('id')->unique();
-            $table->foreignUuid('transaction_id')->constrained();
-            $table->foreignUuid('profile_id')->constrained();
+        Schema::create('contributors', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
         });
     }
@@ -24,6 +22,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('participants');
+        Schema::dropIfExists('contributors');
     }
 };

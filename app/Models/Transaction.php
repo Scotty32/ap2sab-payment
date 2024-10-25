@@ -9,6 +9,16 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transaction extends Model
 {
+    const TRANSACTION_STATUS_SUCCESS = 'success';
+    const TRANSACTION_STATUS_FAILED = 'failed';
+    const TRANSACTION_STATUS_PENDING = 'pending';
+
+    const TRANSACTION_STATUS = [
+        self::TRANSACTION_STATUS_FAILED,
+        self::TRANSACTION_STATUS_PENDING,
+        self::TRANSACTION_STATUS_SUCCESS,
+    ];
+
     use HasUuids;
 
     
@@ -17,6 +27,10 @@ class Transaction extends Model
         'transaction_uuid',
         'payment_code',
         'payment_date',
+        'payment_token',
+        'payment_url',
+        'designation',
+        'status',
     ];
 
     protected function amount(): Attribute
