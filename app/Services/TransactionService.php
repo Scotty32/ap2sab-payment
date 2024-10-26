@@ -53,8 +53,8 @@ class TransactionService
     {
         $transaction = Transaction::where('transaction_uuid', $transactionId)->first();
 
-        if ($transaction) {
-            Log::error("la transaction {id} n'existe pas", ['id' => $transaction->id]);
+        if (!$transaction) {
+            Log::error("la transaction {id} n'existe pas", ['id' => $transactionId]);
         }
         
         if (
