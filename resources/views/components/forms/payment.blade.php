@@ -26,10 +26,10 @@
             </label>
             <x-forms.text-input name="city" label="ville"/>
             <x-forms.text-input
-                class="col-span-2 @if($amount) hidden @endif"
+                class="col-span-2"
+                :disabled="$amount !== null"
                 name="amount"
                 label="montant"
-                :default-value="$amount"
             />
         </div>
         <div class="self-center min-w-36">

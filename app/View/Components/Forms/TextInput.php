@@ -15,6 +15,7 @@ class TextInput extends Component
         public string $name,
         public string $label,
         public ?string $defaultValue,
+        public bool $disabled = false,
     )
     {
         //

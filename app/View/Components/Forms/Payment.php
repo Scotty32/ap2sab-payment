@@ -14,7 +14,7 @@ class Payment extends Component
     public function __construct(
         public string $action,
         public string $designation,
-        public ?string $amount,
+        public ?string $amount = null,
     )
     {}
 
@@ -24,7 +24,7 @@ class Payment extends Component
     }
     public function shouldDisplayAmountInput(): bool
     {
-        return !!$this->amount;
+        return is_numeric($this->amount);
     }
 
     /**

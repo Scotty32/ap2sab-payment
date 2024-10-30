@@ -6,7 +6,6 @@ use App\Contracts\AddParticipantContract;
 use App\Http\Requests\AddParticipant;
 use App\Models\Money;
 use App\Services\ParticipantService;
-use Exception;
 use Illuminate\Http\Request;
 
 class Participation extends Controller

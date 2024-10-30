@@ -8,6 +8,11 @@ Route::match(['GET', 'POST'], 'evenement/inscription/success', function () {
     }
 )->name('api.evenement.inscription.success');
 
+Route::match(['GET', 'POST'], 'contribution/success', function () {
+        return redirect()->route('contribution.success');
+    }
+)->name('api.contribution.success');
+
 Route::post('cinetpay/notification/handler', CinetpayNotification::class)->name('cinetpay.notification.handler');
 Route::get('cinetpay/notification/handler', function() {
     return response("");

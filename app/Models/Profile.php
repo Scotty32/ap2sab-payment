@@ -29,7 +29,7 @@ class Profile extends Model
 
     public function contributors(): HasMany
     {
-        return $this->hasMany(Participant::class);
+        return $this->hasMany(Contributor::class);
     }
 
     static public function findOrCreateProfile(CreateProfileContract $profileDto)

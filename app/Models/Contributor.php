@@ -10,6 +10,10 @@ class Contributor extends Model
 {
     use HasUuids;
 
+    protected $fillable = [
+        'transaction_id'
+    ];
+
     public function transaction(): BelongsTo {
         return $this->belongsTo(Transaction::class);
     }
