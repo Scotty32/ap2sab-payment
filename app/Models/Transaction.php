@@ -4,11 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Transaction extends Model
-{
+{    
+    use HasFactory;
+
     const TRANSACTION_STATUS_SUCCESS = 'success';
     const TRANSACTION_STATUS_FAILED = 'failed';
     const TRANSACTION_STATUS_PENDING = 'pending';

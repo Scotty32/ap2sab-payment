@@ -18,10 +18,6 @@ class Payment extends Component
     )
     {}
 
-    public function getActionUrl(): string 
-    {
-        return route($this->action);
-    }
     public function shouldDisplayAmountInput(): bool
     {
         return is_numeric($this->amount);

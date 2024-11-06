@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
-class Money
+use Illuminate\Support\Stringable;
+
+class Money extends Stringable
 {
     public function __construct(
         private string $currency,

@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('participants', function (Blueprint $table) {
             $table->string('id')->unique();
+            $table->foreignUuid('event_id')->constrained();
             $table->foreignUuid('transaction_id')->constrained();
             $table->foreignUuid('profile_id')->constrained();
             $table->timestamps();

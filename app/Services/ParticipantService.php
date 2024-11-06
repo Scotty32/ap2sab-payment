@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Contracts\AddParticipantContract;
 use App\Contracts\AddParticipantReturnContract;
+use App\Models\Event;
 use App\Models\Participant;
 use App\Models\Profile;
 use App\Models\Transaction;
@@ -32,7 +33,7 @@ class ParticipantService
                 $returnUrl,
             );
     
-            $participant = $this->createParticipant($profile, $transaction);
+            $participant = $this->createParticipant($profile, $transaction, $participantDto->getEvent());
 
             DB::commit();
             return new AddParticipantReturnContract(
@@ -47,10 +48,12 @@ class ParticipantService
 
     public function createParticipant(
         Profile $profile,
-        Transaction $transaction
+        Transaction $transaction,
+        Event $event
     ): Participant {
         $participant = $profile->participants()->create([
-            'transaction_id' => $transaction->id
+            'transaction_id' => $transaction->id,
+            'event_id' => $event->id
         ]);
 
         return $participant;

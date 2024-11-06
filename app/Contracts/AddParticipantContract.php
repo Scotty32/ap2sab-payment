@@ -2,9 +2,14 @@
 
 namespace App\Contracts;
 
+use App\Models\Event;
 use App\Models\Money;
 
 class AddParticipantContract extends CreateProfileContract {
+
+    private Money $amount;
+    private string $designation;
+
     public function __construct(
         string $last_name,
         string $first_name,
@@ -14,8 +19,7 @@ class AddParticipantContract extends CreateProfileContract {
         ?string $profession,
         string $country,
         string $city,
-        private Money $amount,
-        private string $designation,
+        protected Event $event,
     ) {
         parent::__construct(
             $last_name,
@@ -27,6 +31,9 @@ class AddParticipantContract extends CreateProfileContract {
             $country,
             $city
         );
+
+        $this->amount = $event->participation_amount;
+        $this->designation = $event->title;
     }
 
     public function getAmount() : Money
@@ -37,5 +44,10 @@ class AddParticipantContract extends CreateProfileContract {
     public function getDesignation() : string
     {
         return $this->designation;
+    }
+
+    public function getEvent() : Event
+    {
+        return $this->event;
     }
 }

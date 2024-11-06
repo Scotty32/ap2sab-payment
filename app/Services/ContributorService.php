@@ -7,6 +7,7 @@ use App\Contracts\AddContributorReturnContract;
 use App\Models\Contributor;
 use App\Models\Participant;
 use App\Models\Profile;
+use App\Models\Project;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 
@@ -33,7 +34,7 @@ class ContributorService
                 $returnUrl,
             );
     
-            $contributor = $this->createContributor($profile, $transaction);
+            $contributor = $this->createContributor($profile, $transaction, $contributorDto->getProject());
 
             DB::commit();
             return new AddContributorReturnContract(
@@ -48,10 +49,12 @@ class ContributorService
 
     public function createContributor(
         Profile $profile,
-        Transaction $transaction
+        Transaction $transaction,
+        Project $project,
     ): Contributor {
         $contributor = $profile->contributors()->create([
-            'transaction_id' => $transaction->id
+            'transaction_id' => $transaction->id,
+            'project_id' =>$project->id,
         ]);
 
         return $contributor;

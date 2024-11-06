@@ -4,7 +4,7 @@
             {{ $designation }}
         </span>
     </div>
-    <form class="w-full flex flex-col max-w-3xl gap-12" method="POST" action={{ $getActionUrl() }}>
+    <form class="w-full flex flex-col max-w-3xl gap-12" method="POST" action={{ $action }}>
         @csrf
         <div class="grid sm:grid-cols-2 gap-x-6 gap-y-3">
             <x-forms.text-input name="last_name" label="Nom"/>

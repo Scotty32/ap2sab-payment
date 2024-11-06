@@ -1,17 +1,21 @@
-<?php declare(strict_type=1);
+<?php declare(strict_types=1);
 
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Contributor extends Model
 {
     use HasUuids;
+    use HasFactory;
 
     protected $fillable = [
-        'transaction_id'
+        'transaction_id',
+        'profile_id',
+        'project_id',
     ];
 
     public function transaction(): BelongsTo {
@@ -19,6 +23,10 @@ class Contributor extends Model
     }
     
     public function profile(): BelongsTo {
-        return $this->belongsTo(Transaction::class);
+        return $this->belongsTo(Profile::class);
+    }
+    
+    public function project(): BelongsTo {
+        return $this->belongsTo(Project::class);
     }
 }
