@@ -32,6 +32,10 @@ Route::prefix('evenement')
     }
 );
 
+Route::get('/test', function () {
+    return response()->json([ 'test' => 'success']);
+});
+
 Route::prefix('contribution')
     ->name('contribution')
     ->group(function() {

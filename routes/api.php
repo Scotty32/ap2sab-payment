@@ -31,3 +31,7 @@ Route::prefix('/projects')->group(function () {
     Route::get('/pending', [Events::class, 'pending']);
     Route::get('/done', [Projects::class, 'getDoneProjects']);
 });
+
+Route::get('/test', function () {
+    return response()->json([ 'test' => 'success']);
+});
