@@ -33,4 +33,18 @@ class AddContributor extends FormRequest
             'amount' => 'required|numeric',
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'first_name' => 'prénom',
+            'last_name' => 'nom',
+            'phone_number' => 'numero de téléphone',
+            'profession' => 'nullable|string',
+            'promotion' => 'nullable|string',
+            'city' => 'ville',
+            'country' => 'pays',
+            'amount' => 'montant de la contribution'
+        ];
+    }
 }
