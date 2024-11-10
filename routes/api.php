@@ -28,6 +28,6 @@ Route::prefix('/events')->group(function () {
 
 Route::prefix('/projects')->group(function () {
     Route::get('/', [Projects::class, 'all']);
-    Route::get('/pending', [Events::class, 'pending']);
+    Route::get('/pending', [Projects::class, 'pending']);
     Route::get('/done', [Projects::class, 'getDoneProjects']);
 });

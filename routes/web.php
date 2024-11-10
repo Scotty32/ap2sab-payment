@@ -15,10 +15,10 @@ Route::prefix('evenement')
     ->name('evenement')
     ->group(function() {
         Route::name('.inscription')
-        ->prefix('/inscription')
+        ->prefix('/inscription/{event}')
         ->group(function() {
-            Route::get('/{event}', [Participation::class, 'showParticipationForm'])->name('.show');
-            Route::post('/{event}', [Participation::class, 'addParticipant'])->name('.store');
+            Route::get('/', [Participation::class, 'showParticipationForm'])->name('.show');
+            Route::post('/', [Participation::class, 'addParticipant'])->name('.store');
         
             Route::get('/success', function () {
                 return view('participation.inscription-success');
@@ -32,7 +32,7 @@ Route::prefix('evenement')
     }
 );
 
-Route::prefix('contribution')
+Route::prefix('contribution/{project}')
     ->name('contribution')
     ->group(function() {
         Route::get('/success', function () {
@@ -44,7 +44,7 @@ Route::prefix('contribution')
         })
         ->name('.success.redirection');
 
-        Route::get('/{project}', [Contribution::class, 'showContributionForm'])->name('.show');
-        Route::post('/{project}', [Contribution::class, 'addContributor'])->name('.store');
+        Route::get('/', [Contribution::class, 'showContributionForm'])->name('.show');
+        Route::post('/', [Contribution::class, 'addContributor'])->name('.store');
     }
 );

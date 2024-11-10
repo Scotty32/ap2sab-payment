@@ -24,7 +24,7 @@ class ParticipantService
             DB::beginTransaction();
 
             $profile = $this->profileService->getOrCreateProfile($participantDto);
-            $returnUrl = url(route('api.evenement.inscription.success'));
+            $returnUrl = url(route('api.evenement.inscription.success', ['event' => $participantDto->getEvent()->id]));
 
             $transaction = $this->transactionService->initTransaction(
                 $profile,

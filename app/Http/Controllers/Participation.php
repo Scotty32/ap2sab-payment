@@ -16,7 +16,7 @@ class Participation extends Controller
     {
         $designation = $event->title;
         $amount = $event->participation_amount_amount;
-        $formAction = url('evenement.inscription.store', [ 'event' => $event->id]);
+        $formAction = url(route('evenement.inscription.store', [ 'event' => $event->id]));
 
         return view('participation.add_participant', [
             'amount' => $amount,
@@ -28,7 +28,6 @@ class Participation extends Controller
     public function addParticipant(AddParticipant $request, Event $event)
     {
         $designation = $event->title;
-        $amount = $event->participation_amount_amount;
 
         $data = $request->validated();
 
@@ -43,7 +42,7 @@ class Participation extends Controller
                     $data['profession'],
                     $data['country'],
                     $data['city'],
-                    new Money('XOF', $amount),
+                    $event,
                     $designation
                 )
             );

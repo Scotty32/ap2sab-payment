@@ -2,7 +2,7 @@
 
 namespace App\View\Composers;
  
-use GuzzleHttp\Client;
+//use GuzzleHttp\Client;
 use Illuminate\View\View;
  
 class CountriesComposer
@@ -16,7 +16,7 @@ class CountriesComposer
     public function compose(View $view): void
     {
         
-        $client = new Client();
+        /* $client = new Client();
         $response = $client->get('https://restcountries.com/v3.1/all', [
             'headers' => [
                 'Content-Type' => 'application/json'
@@ -27,8 +27,19 @@ class CountriesComposer
         $countries = array_map(function($item) {
             return $item['translations']['fra']['common'];
         }, $responseData);
-        sort($countries);
+        sort($countries); */
 
-        $view->with('countries', $countries);
+        $view->with('countries', [
+            "Cote d\ivoire",
+            "Cameroun",
+            "Burkina Faso",
+            "Mali",
+            "Ghana",
+            "Guinée",
+            "Afrique",
+            "Europe",
+            "USA",
+            "Reste Du Monde",
+        ]);
     }
 }
