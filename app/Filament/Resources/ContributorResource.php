@@ -19,6 +19,10 @@ class ContributorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
+    protected static ?string $modelLabel = 'Donateur';
+    protected static ?string $pluiralModelLabel = 'Donateurs';
+
     public static function form(Form $form): Form
     {
         return $form

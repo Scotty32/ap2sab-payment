@@ -29,37 +29,52 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = 'Evenement';
+    protected static ?string $pluiralModelLabel = 'Evenements';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Section::make('project informations')
+                Section::make('Informations sur l\'évenement')
                     ->schema([
-                        TextInput::make('title')->required(),
-                        TextInput::make('short_description')->required(),
-                        DatePicker::make('date')->required(),
+                        TextInput::make('title')
+                            ->label(__('admin.event.title.label'))
+                            ->required(),
+                        TextInput::make('short_description')
+                            ->label(__('admin.event.short_description.label'))
+                            ->required(),
+                        DatePicker::make('date')
+                            ->label(__('admin.event.date.label'))
+                            ->required(),
                     ])
                     ->columns(3),
-                Section::make('participation_amount')
+                Section::make('Montant de la participation')
                     ->schema([
-                        TextInput::make('participation_amount_amount')->required()
+                        TextInput::make('participation_amount_amount')
+                            ->label(__('admin.event.participation_amount.amount'))
+                            ->required()
                             ->columnSpan(2), 
                         Select::make('participation_amount_currency')
                             ->options([
                                 'XOF' => 'FCFA',
                             ])
                             ->default('XOF')
-                            ->columnSpan(1),
+                            ->columnSpan(1)
+                            ->label(__('admin.event.participation_amount.currency'))
                     ])
-                    ->columns(5),
-                RichEditor::make('long_description')->required(),
-                FileUpload::make('image_url')
+                    ->columns(6),
+                RichEditor::make('long_description')
+                    ->label(__('admin.event.long_description.label'))
+                    ->required()
+                    ->columnSpan(2),
+                FileUpload::make('image_url')->label('Image')
                     ->disk('public')
                     ->directory('projects-images')
                     ->image()        
                     ->imageEditor()
                     ->required()
-                    
+                    ->columnSpan(2)        
             ]);
     }
 
@@ -67,9 +82,9 @@ class EventResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('short_description'),
-                Tables\Columns\TextColumn::make('participation_amount'),
+                Tables\Columns\TextColumn::make('title')->label(__('admin.event.title.label')),
+                Tables\Columns\TextColumn::make('short_description')->label(__('admin.event.short_description.label')),
+                Tables\Columns\TextColumn::make('participation_amount')->label(__('admin.event.participation_amount.label')),
             ])
             ->filters([
                 //

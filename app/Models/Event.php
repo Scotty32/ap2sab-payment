@@ -28,7 +28,6 @@ class Event extends Model
         'participation_amount',
         'image_full_url',
     ];
-
     
     public static function boot(): void
     {

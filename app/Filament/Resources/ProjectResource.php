@@ -25,38 +25,47 @@ class ProjectResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $modelLabel = 'Projet';
+    protected static ?string $pluiralModelLabel = 'Projets';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('title')->required(),
-                RichEditor::make('description')->required(),
-                TextInput::make('required_amount_amount')->required(),
-                Select::make('required_amount_currency')
-                ->required()
-                ->options([
-                    'XOF' => 'FCFA',
-                ])
-                ->default('XOF'),
-                /* Section::make('required_amount')
+                TextInput::make('title')
+                    ->required()
+                    ->label(__('admin.project.title.label')),
+                DatePicker::make('end_date')
+                    ->label(__('admin.project.end_date.label'))
+                    ->required(),
+                Section::make('Montant du projet')->label(__('admin.project.required_amount.label'))
                     ->schema([
-                        TextInput::make('required_amount_amount')->columnSpan(3)->required(),
+                        TextInput::make('required_amount_amount')
+                            ->label(__('admin.project.required_amount.amount'))
+                            ->columnSpan(2)
+                            ->required(),
                         Select::make('required_amount_currency')
+                            ->label(__('admin.project.required_amount.currency'))
                             ->required()
                             ->options([
                                 'XOF' => 'FCFA',
                             ])
                             ->default('XOF')
-                            ->columnSpan(2),
+                            ->columnSpan(1),
                     ])
-                    ->columns(5), */
-                DatePicker::make('end_date')->required(),
+                    ->columns(6),
+                RichEditor::make('description')
+                    ->label(__('admin.project.description.label'))
+                    ->required()
+                    ->columnSpan(2),
                 FileUpload::make('image_url')
+                    ->label('image')
                     ->disk('public')
                     ->directory('projects-images')
                     ->image()        
                     ->imageEditor()
                     ->required()
+                    ->columnSpan(2),
             ]);
     }
 
@@ -64,19 +73,17 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
-                Tables\Columns\TextColumn::make('required_amount'),
+                Tables\Columns\TextColumn::make('title')->label(__('admin.project.title.label')),
+                Tables\Columns\TextColumn::make('required_amount')->label(__('admin.project.required_amount.label')),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label('Modifier'),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                //
             ]);
     }
 

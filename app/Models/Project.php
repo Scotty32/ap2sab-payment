@@ -28,13 +28,12 @@ class Project extends Model
         'image_full_url',
     ];
 
-    
     public static function boot(): void
     {
         parent::boot();
         Model::unguard();
     }
-    
+
     protected function requiredAmount(): Attribute
     {
         return Attribute::make(
