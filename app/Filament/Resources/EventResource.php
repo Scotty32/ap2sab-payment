@@ -54,6 +54,7 @@ class EventResource extends Resource
                         TextInput::make('participation_amount_amount')
                             ->label(__('admin.event.participation_amount.amount'))
                             ->required()
+                            ->numeric()
                             ->columnSpan(2), 
                         Select::make('participation_amount_currency')
                             ->options([

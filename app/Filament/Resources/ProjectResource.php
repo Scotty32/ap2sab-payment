@@ -44,6 +44,7 @@ class ProjectResource extends Resource
                         TextInput::make('required_amount_amount')
                             ->label(__('admin.project.required_amount.amount'))
                             ->columnSpan(2)
+                            ->numeric()
                             ->required(),
                         Select::make('required_amount_currency')
                             ->label(__('admin.project.required_amount.currency'))
