@@ -30,7 +30,7 @@ class CountriesComposer
         sort($countries); */
 
         $view->with('countries', [
-            "Cote d\ivoire",
+            "Cote d'ivoire",
             "Cameroun",
             "Burkina Faso",
             "Mali",

@@ -23,6 +23,16 @@ class Money extends Stringable
 
     public function __toString(): string
     {
-        return "{$this->currency} {$this->amount}";
+        return "{$this->amount} {$this->getDeviseFromSymbol($this->currency)}";
+    }
+
+    private function getDeviseFromSymbol(string $symbol) {
+        $devises = [
+            'XOF' => 'FCFA',
+            'EUR' => 'Euro',
+            '$' => 'Dollar',
+        ];
+
+        return $devises[$symbol];
     }
 }

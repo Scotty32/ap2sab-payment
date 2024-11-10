@@ -13,30 +13,21 @@
             <x-forms.text-input name="phone_number" label="Telephone"/>
             <x-forms.text-input name="promotion" label="Promotion"/>
             <x-forms.text-input name="profession" label="Profession"/>
-            <label class="form-control">
-                <select name="country" class="select select-primary w-full @error("country") input-error @enderror">
-                    <option selected disabled>Pays</option>
-                    @foreach ($countries as $country)
-                        <option value={{$country}}>{{ $country }}</option>
-                    @endforeach                                        
-                </select> 
-                @error("country")
-                    <span class="text-md text-red-500">{{ $message }}</span>
-                @enderror
-            </label>
+            <x-forms.select name="country" label="Pays" :options="$countries" />
             <x-forms.text-input name="city" label="ville"/>
+            @if ($amount === null)
             <x-forms.text-input
                 class="col-span-2"
-                :disabled="$amount !== null"
                 name="amount"
                 label="montant"
             />
+            @endif
         </div>
         <div class="self-center min-w-36">
             <button
                 type="submit"
-                class="btn uppercase text-white bg-cyan-800"
-            >   Payer {{ $amount }} XOF
+                class="btn uppercase text-white bg-[#FBB040]"
+            >   Payer {{ $amount }}
            </button>
         </div>
         
