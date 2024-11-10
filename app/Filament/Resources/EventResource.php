@@ -55,8 +55,10 @@ class EventResource extends Resource
                 RichEditor::make('long_description')->required(),
                 FileUpload::make('image_url')
                     ->disk('public')
+                    ->directory('projects-images')
                     ->image()        
                     ->imageEditor()
+                    ->required()
                     
             ]);
     }
@@ -68,7 +70,6 @@ class EventResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('short_description'),
                 Tables\Columns\TextColumn::make('participation_amount'),
-                //Tables\Columns\TextColumn::make('owner.name'),
             ])
             ->filters([
                 //

@@ -17,7 +17,7 @@ class Project extends Model
 
     protected $fillable = [
         'title',
-        'decription',
+        'description',
         'end_date',
         'required_amount',
         'image_url',
@@ -28,6 +28,13 @@ class Project extends Model
         'image_full_url',
     ];
 
+    
+    public static function boot(): void
+    {
+        parent::boot();
+        Model::unguard();
+    }
+    
     protected function requiredAmount(): Attribute
     {
         return Attribute::make(

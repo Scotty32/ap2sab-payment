@@ -9,6 +9,8 @@ use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -27,13 +29,34 @@ class ProjectResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('title'),
-                RichEditor::make('description'),
-                TextInput::make('required_montant'),
-                DatePicker::make('end_date'),
+                TextInput::make('title')->required(),
+                RichEditor::make('description')->required(),
+                TextInput::make('required_amount_amount')->required(),
+                Select::make('required_amount_currency')
+                ->required()
+                ->options([
+                    'XOF' => 'FCFA',
+                ])
+                ->default('XOF'),
+                /* Section::make('required_amount')
+                    ->schema([
+                        TextInput::make('required_amount_amount')->columnSpan(3)->required(),
+                        Select::make('required_amount_currency')
+                            ->required()
+                            ->options([
+                                'XOF' => 'FCFA',
+                            ])
+                            ->default('XOF')
+                            ->columnSpan(2),
+                    ])
+                    ->columns(5), */
+                DatePicker::make('end_date')->required(),
                 FileUpload::make('image_url')
                     ->disk('public')
                     ->directory('projects-images')
+                    ->image()        
+                    ->imageEditor()
+                    ->required()
             ]);
     }
 
@@ -41,7 +64,8 @@ class ProjectResource extends Resource
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('required_amount'),
             ])
             ->filters([
                 //
