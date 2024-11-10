@@ -3,15 +3,17 @@
 use App\Http\Controllers\API\CinetpayNotification;
 use App\Http\Controllers\API\Events;
 use App\Http\Controllers\API\Projects;
+use App\Models\Event;
+use App\Models\Project;
 use Illuminate\Support\Facades\Route;
 
-Route::match(['GET', 'POST'], 'evenement/inscription/success', function () {
-        return redirect()->route('evenement.inscription.success');
+Route::match(['GET', 'POST'], 'evenement/inscription/{event}/success', function (Event $event) {
+        return redirect()->route('evenement.inscription.success', ['event', $event->id]);
     }
 )->name('api.evenement.inscription.success');
 
-Route::match(['GET', 'POST'], 'contribution/success', function () {
-        return redirect()->route('contribution.success');
+Route::match(['GET', 'POST'], 'contribution/{project}/success', function (Project $project) {
+        return redirect()->route('contribution.success', ['project' => $project->id]);
     }
 )->name('api.contribution.success');
 
