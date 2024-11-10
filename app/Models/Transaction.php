@@ -54,4 +54,9 @@ class Transaction extends Model
     {
         return $this->hasOne(Participant::class);
     }
+
+    public function contributor(): HasOne
+    {
+        return $this->hasOne(Contributor::class);
+    }
 }
