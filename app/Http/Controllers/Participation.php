@@ -15,7 +15,7 @@ class Participation extends Controller
     public function showParticipationForm(Request $request, Event $event)
     {
         $designation = $event->title;
-        $amount = $event->participation_amount_amount;
+        $amount = $event->participation_amount;
         $formAction = url(route('evenement.inscription.store', [ 'event' => $event->id]));
 
         return view('participation.add_participant', [

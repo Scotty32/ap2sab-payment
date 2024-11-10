@@ -11,6 +11,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Grouping\Group;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -35,8 +36,10 @@ class ParticipantResource extends Resource
                 $query->where('status', Transaction::TRANSACTION_STATUS_SUCCESS);
             }))
             ->groups([
-                'event.id',
+                Group::make('event.title')
+                ->label(__('admin.project.title.label')),
             ])
+            ->defaultGroup('event.title')
             ->columns([
                 Tables\Columns\TextColumn::make('profile.last_name')->label('nom'),
                 Tables\Columns\TextColumn::make('profile.first_name')->label('prenom'),

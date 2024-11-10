@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
+use App\Filament\Resources\ProjectResource\RelationManagers\ContributorsRelationManager;
 use App\Models\Project;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -90,7 +91,7 @@ class ProjectResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ContributorsRelationManager::class,
         ];
     }
 
