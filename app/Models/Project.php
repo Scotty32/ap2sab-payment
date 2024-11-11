@@ -24,7 +24,6 @@ class Project extends Model
     ];
     
     protected $appends = [
-        'required_amount',
         'image_full_url',
     ];
 
