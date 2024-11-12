@@ -25,7 +25,7 @@ class ContributorService
             DB::beginTransaction();
 
             $profile = $this->profileService->getOrCreateProfile($contributorDto);
-            $returnUrl = url(route('api.contribution.success'));
+            $returnUrl = url(route('api.contribution.success',  ['project' => $contributorDto->getProject()->id]));
 
             $transaction = $this->transactionService->initTransaction(
                 $profile,

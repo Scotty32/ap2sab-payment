@@ -5,7 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ProjectResource\Pages;
 use App\Filament\Resources\ProjectResource\RelationManagers;
 use App\Filament\Resources\ProjectResource\RelationManagers\ContributorsRelationManager;
+use App\Filament\Resources\ProjectResource\RelationManagers\TransactionsRelationManager;
 use App\Models\Project;
+use App\Models\Transaction;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -35,20 +37,22 @@ class ProjectResource extends Resource
             ->schema([
                 TextInput::make('title')
                     ->required()
-                    ->label(__('admin.project.title.label')),
-                DatePicker::make('end_date')
-                    ->label(__('admin.project.end_date.label'))
-                    ->required(),
-                Section::make('Montant du projet')->label(__('admin.project.required_amount.label'))
+                    ->label(__('admin.project.title.label'))
+                    ->columnSpan(2),
+                RichEditor::make('description')
+                    ->label(__('admin.project.description.label'))
+                    ->required()
+                    ->columnSpan(2),
+                Section::make('Montant du projet')
+                ->description('veuillez indiquer le montant total que va couter le projet, ce champs n\'est pas obligatoire')
                     ->schema([
                         TextInput::make('required_amount_amount')
                             ->label(__('admin.project.required_amount.amount'))
                             ->columnSpan(2)
                             ->numeric()
-                            ->required(),
+                            ->default(0),
                         Select::make('required_amount_currency')
                             ->label(__('admin.project.required_amount.currency'))
-                            ->required()
                             ->options([
                                 'XOF' => 'FCFA',
                             ])
@@ -56,17 +60,13 @@ class ProjectResource extends Resource
                             ->columnSpan(1),
                     ])
                     ->columns(6),
-                RichEditor::make('description')
-                    ->label(__('admin.project.description.label'))
-                    ->required()
-                    ->columnSpan(2),
                 FileUpload::make('image_url')
                     ->label('image')
                     ->disk('public')
                     ->directory('projects-images')
+                    ->default('default-image.jpg')
                     ->image()        
                     ->imageEditor()
-                    ->required()
                     ->columnSpan(2),
             ]);
     }
@@ -76,7 +76,21 @@ class ProjectResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title')->label(__('admin.project.title.label')),
-                Tables\Columns\TextColumn::make('required_amount')->label(__('admin.project.required_amount.label')),
+                Tables\Columns\TextColumn::make('contributors_count')
+                    ->label('nombre de contributeur')
+                    ->counts([
+                        'contributors' => fn (Builder $query) => $query->whereHas( 'transaction', function ($query) {
+                            $query->where('status', Transaction::TRANSACTION_STATUS_SUCCESS);
+                        }),
+                    ]),
+                    Tables\Columns\TextColumn::make('transactions_sum_raw_amount')
+                        ->label('Montant collecté')
+                        ->sum([
+                            'transactions' => fn (Builder $query) => $query->where('status', Transaction::TRANSACTION_STATUS_SUCCESS),
+                        ], 'raw_amount')
+                        ->default(0),
+                    Tables\Columns\ToggleColumn::make('is_done')
+                    ->label('Projet cloturé')
             ])
             ->filters([
                 //
@@ -93,6 +107,7 @@ class ProjectResource extends Resource
     {
         return [
             ContributorsRelationManager::class,
+            //TransactionsRelationManager::class,
         ];
     }
 

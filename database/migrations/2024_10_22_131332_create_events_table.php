@@ -19,7 +19,7 @@ return new class extends Migration
             $table->dateTime('date');
             $table->string('participation_amount_currency');
             $table->float('participation_amount_amount');
-            $table->string('image_url')->nullable();
+            $table->string('image_url')->default('default-image.jpg');
             $table->timestamps();
         });
     }

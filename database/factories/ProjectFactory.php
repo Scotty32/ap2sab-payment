@@ -24,18 +24,7 @@ class ProjectFactory extends Factory
         return [
             'title' => fake()->words(5),
             'description' => fake()->randomHtml(),
-            'end_date' => Carbon::now()->addMonths(6),
             'required_amount' => new Money('XOF', rand(500000, 3000000)),
         ];
-    }
-    
-    
-    public function accomplished(): Factory
-    {
-        return $this->state(function (array $attributes) {
-            return [
-                'end_date' => Carbon::now()->subMonths(2),
-            ];
-        });
     }
 }

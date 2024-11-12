@@ -25,6 +25,7 @@ Route::get('cinetpay/notification/handler', function() {
 Route::prefix('/events')->group(function () {
     Route::get('/', [Events::class, 'all']);
     Route::get('/pending', [Events::class, 'pending']);
+    Route::post('/by-date', [Events::class, 'byDate']);
     Route::get('/done', [Events::class, 'getDoneEvents']);
 });
 

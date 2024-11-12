@@ -11,6 +11,12 @@ class Money extends Stringable
         private float $amount
     ) {}
 
+    public static function create(
+        string $currency,
+        float $amount
+    )  {
+        return new Money($currency, $amount);
+    }
     public function getCurrency() : string
     {
         return $this->currency;
@@ -23,6 +29,9 @@ class Money extends Stringable
 
     public function __toString(): string
     {
+        if (0 >= $this->amount) {
+            return "";
+        }
         return "{$this->amount} {$this->getDeviseFromSymbol($this->currency)}";
     }
 

@@ -27,6 +27,6 @@ class ProjectService
      */
     public function getPendingProjects(): array
     {
-        return Project::where('end_date', '>', now())->get()->toArray();
+        return Project::where('is_done', false)->get()->toArray();
     }
 }

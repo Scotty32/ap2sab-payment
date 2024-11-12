@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Project extends Model
 {
@@ -18,13 +20,20 @@ class Project extends Model
     protected $fillable = [
         'title',
         'description',
-        'end_date',
+        'required_amount_currency',
+        'required_amount_amount',
         'required_amount',
         'image_url',
     ];
     
     protected $appends = [
         'image_full_url',
+    ];
+
+    protected $attributes = [
+        'required_amount_currency' => 'XOF',
+        'required_amount_amount' => 0,
+        'image_url' => 'default-image.jpg',
     ];
 
     public static function boot(): void
@@ -50,5 +59,10 @@ class Project extends Model
     public function contributors(): HasMany
     {
         return $this->hasMany(Contributor::class);
+    }
+    
+    public function transactions(): BelongsToMany
+    {
+        return $this->belongsToMany(Transaction::class, 'contributors');
     }
 }

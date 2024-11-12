@@ -29,11 +29,15 @@ class Event extends Model
     protected $appends = [
         'image_full_url',
     ];
+
+    protected $attributes = [
+        'image_url' => 'default-image.jpg',
+    ];
     
     public static function boot(): void
     {
-        Model::unguard();
         parent::boot();
+        Model::unguard();
     }
 
     public function participants(): HasMany
@@ -45,6 +49,7 @@ class Event extends Model
     {
         return [
             'participation_amount' => Money::class,
+            'date' => 'datetime:d/m/Y',
         ];
     }
 }

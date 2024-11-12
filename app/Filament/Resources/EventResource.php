@@ -48,6 +48,7 @@ class EventResource extends Resource
                     ])
                     ->columns(3),
                 Section::make('Montant de la participation')
+                    ->description('veuillez indiquer le montant que chaque participant devra payer')
                     ->schema([
                         TextInput::make('participation_amount_amount')
                             ->label(__('admin.event.participation_amount.amount'))
@@ -69,7 +70,8 @@ class EventResource extends Resource
                     ->columnSpan(2),
                 FileUpload::make('image_url')->label('Image')
                     ->disk('public')
-                    ->directory('projects-images')
+                    ->directory('events-images')
+                    ->default('default-image.jpg')
                     ->image()        
                     ->imageEditor()
                     ->required()
