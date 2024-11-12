@@ -43,6 +43,7 @@ class EventResource extends Resource
                             ->label(__('admin.event.short_description.label'))
                             ->required(),
                         DatePicker::make('date')
+                            ->format('d/m/Y')
                             ->label(__('admin.event.date.label'))
                             ->required(),
                     ])
