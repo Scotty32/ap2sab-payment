@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Event;
 use Carbon\Carbon;
+use Exception;
 
 class EventService
 {
@@ -36,6 +37,8 @@ class EventService
      */
     public function getEventBydate(string $date): Event
     {
-        return Event::where('date', Carbon::createFromFormat('d/m/Y' ,$date)->format('Y-m-d'))->firstOrFail();
+        return Event::where('date', Carbon::createFromFormat('d/m/Y' ,$date)->format('Y-m-d'))->firstOr(function () use ($date) {
+            throw new Exception('aucun evenement a la date '.Carbon::createFromFormat('d/m/Y', $date)->format('Y-m-d'));
+        });
     }
 }
