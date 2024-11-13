@@ -2,13 +2,8 @@
 
 use App\Http\Controllers\Contribution;
 use App\Http\Controllers\Participation;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    Log::info('test');
-    return view('welcome');
-})->name('welcome');
 
 
 Route::prefix('evenement')
